@@ -5,19 +5,37 @@ import userEvent from '@testing-library/user-event';
 import ContactForm from './ContactForm';
 
 test('renders without errors', ()=>{
-    
+    render(<ContactForm/>);
 });
 
 test('renders the contact form header', ()=> {
+    render(<ContactForm/>);
+
+    const header = screen.getByText(/contact form/i);
+    expect(header).toBeInTheDocument();
     
 });
 
 test('renders ONE error message if user enters less then 5 characters into firstname.', async () => {
+    render(<ContactForm/>);
+
+    const firstName = screen.getByPlaceholderText(/edd/i);
+    userEvent.type(firstName,"abcd");
+
+    const error = screen.getByTestId("error");
+    expect(error).toBeTruthy();
     
 });
 
 test('renders THREE error messages if user enters no values into any fields.', async () => {
-    
+    render(<ContactForm/>);
+
+    const btn = screen.getByTestId("btn");
+    userEvent.click(btn);
+
+    const errors = screen.getAllByTestId("error");
+    expect(errors).toHaveLength(3);
+
 });
 
 test('renders ONE error message if user enters a valid first name and last name but no email.', async () => {
