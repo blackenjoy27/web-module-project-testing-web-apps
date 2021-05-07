@@ -114,6 +114,7 @@ const ContactForm = () => {
             onChange={handleChange}
             name="message"
             id="message"
+            data-testid="msg"
             value={form.message}
           />
           {(errors.message) && <p data-testid="error">Error: {errors.message}</p>}
